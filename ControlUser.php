@@ -1,9 +1,9 @@
 <?php
-require_once 'User.php';
-if (isset($_POST['login']) && isset($_POST['password'])) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    $user = new $user($login, $password);
+$login = $_POST['login'];
+$password = $_POST['password'];
+include 'User.php';
+$use = new $user($login, $password);
+if ($use->connect()) {
 } else {
     header("Location:authentification.html");
 }

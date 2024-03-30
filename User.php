@@ -13,7 +13,7 @@ class user
         if (!isset($this->$GT))
             return "erreur";
         else
-            return ($this->$GT);
+            return($this->$GT);
     }
     public function __set($GT, $value)
     {
@@ -28,12 +28,16 @@ class user
         $s = "Félicitation la login : " . $this->Login . "est ajoute avec succé";
         return $s;
     }
-    function correct()
+    function connect()
     {
-        if ($this->Login === 'admin' && $this->Password === 'admin') {
-            return 'true';
-        } else
-            return 'false';
+        include 'Connection.php';
+        $sql = $bdd->query("SELECT * FROM users WHERE Login ='$this->login' and Password='$this->password'");
+        $user = $sql->fetch(PDO::FETCH_OBJ);
+        if ($sql->rowCount() > 0) {
+            echo "Login : " . $user->login . "</br>";
+        } else {
+            header("Location:authentification.html");
+        }
     }
 }
 ?>
